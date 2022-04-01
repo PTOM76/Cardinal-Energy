@@ -27,23 +27,15 @@ dependencies {
 	//Base
 	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${cardinal_components}"
 	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${cardinal_components}"
-	//modCompile "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${cardinal_components}"
-	//include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${cardinal_components}"
 
 	//Item
 	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-item:${cardinal_components}"
 	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-item:${cardinal_components}"
 
-	//modCompile "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-item:${cardinal_components}"
-	//include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-item:${cardinal_components}"
-
 	// LOCAL
 	//Block
 	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:${cardinal_components}"
 	include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:${cardinal_components}"
-
-	//modCompile "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-block:${cardinal_components}"
-	//include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-block:${cardinal_components}"
 }
 
 jar {
