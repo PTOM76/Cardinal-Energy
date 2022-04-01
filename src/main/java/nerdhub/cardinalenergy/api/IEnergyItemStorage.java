@@ -1,6 +1,5 @@
 package nerdhub.cardinalenergy.api;
 
-import nerdhub.cardinal.components.api.component.Component;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -10,9 +9,6 @@ import net.minecraft.world.World;
  * An example implementation can be found at {@link nerdhub.cardinalenergy.impl.ItemEnergyStorage}
  */
 public interface IEnergyItemStorage extends IEnergyStorage {
-
-    @Override
-    boolean isComponentEqual(Component other);
 
     @Override
     default int sendEnergy(World world, BlockPos pos, int amount) {

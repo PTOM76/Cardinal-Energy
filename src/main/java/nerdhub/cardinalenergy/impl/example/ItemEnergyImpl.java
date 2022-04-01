@@ -1,7 +1,7 @@
 package nerdhub.cardinalenergy.impl.example;
 
-import nerdhub.cardinal.components.api.event.ItemComponentCallback;
-import nerdhub.cardinalenergy.DefaultTypes;
+//import nerdhub.cardinal.components.api.event.ItemComponentCallback;
+import nerdhub.cardinalenergy.DefaultKeys;
 import nerdhub.cardinalenergy.api.IEnergyItemHandler;
 import nerdhub.cardinalenergy.api.IEnergyStorage;
 import nerdhub.cardinalenergy.impl.EnergyStorage;
@@ -22,14 +22,14 @@ public class ItemEnergyImpl extends Item implements IEnergyItemHandler {
 
     public ItemEnergyImpl(Settings settings) {
         super(settings);
-        ItemComponentCallback.event(this).register((stack, components) -> components.put(DefaultTypes.CARDINAL_ENERGY, new EnergyStorage(1000)));
+        //ItemComponentCallback.event(this).register((stack, components) -> components.put(DefaultKeys.CARDINAL_ENERGY, new EnergyStorage(1000)));
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
         //Example extracting energy when the item is used
         ItemStack stack = playerEntity.getMainHandStack();
-        IEnergyStorage storage = DefaultTypes.CARDINAL_ENERGY.get(stack);
+        IEnergyStorage storage = DefaultKeys.CARDINAL_ENERGY.get(stack);
         storage.extractEnergy(100);
 
         return new TypedActionResult(ActionResult.SUCCESS, playerEntity.getMainHandStack());
@@ -38,7 +38,7 @@ public class ItemEnergyImpl extends Item implements IEnergyItemHandler {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int int_1, boolean boolean_1) {
         //Example adding energy every tick
-        IEnergyStorage storage = DefaultTypes.CARDINAL_ENERGY.get(stack);
+        IEnergyStorage storage = DefaultKeys.CARDINAL_ENERGY.get(stack);
         storage.receiveEnergy(1);
     }
 }

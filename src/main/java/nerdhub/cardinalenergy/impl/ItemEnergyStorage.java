@@ -1,7 +1,7 @@
 package nerdhub.cardinalenergy.impl;
 
-import nerdhub.cardinal.components.api.component.Component;
-import nerdhub.cardinal.components.api.component.extension.CloneableComponent;
+import dev.onyxstudios.cca.api.v3.component.Component;
+import dev.onyxstudios.cca.api.v3.component.CopyableComponent;
 import nerdhub.cardinalenergy.api.IEnergyItemStorage;
 import nerdhub.cardinalenergy.api.IEnergyStorage;
 import nerdhub.cardinalenergy.impl.example.ItemEnergyImpl;
@@ -83,7 +83,7 @@ public class ItemEnergyStorage implements IEnergyItemStorage {
     }
 
     @Override
-    public void fromTag(NbtCompound tag) {
+    public void readFromNbt(NbtCompound tag) {
         if(tag.contains(ENERGY_TAG)) {
             NbtCompound energyData = tag.getCompound(ENERGY_TAG);
             this.capacity = energyData.getInt("capacity");
@@ -92,13 +92,12 @@ public class ItemEnergyStorage implements IEnergyItemStorage {
     }
 
     @Override
-    public NbtCompound toTag(NbtCompound tag) {
+    public void writeToNbt(NbtCompound tag) {
         NbtCompound energyData = new NbtCompound();
         energyData.putInt("capacity", capacity);
         energyData.putInt("energyStored", energyStored);
 
         tag.put(ENERGY_TAG, energyData);
-        return tag;
     }
 
     @Override
@@ -107,7 +106,14 @@ public class ItemEnergyStorage implements IEnergyItemStorage {
     }
 
     @Override
-    public CloneableComponent newInstance() {
+    public CopyableComponent newInstance() {
         return new ItemEnergyStorage(capacity, energyStored);
+    }
+
+    @Override
+    public void copyFrom(Component other) {
+        NbtCompound nbt = new NbtCompound();
+        other.writeToNbt(nbt);
+        readFromNbt(nbt);
     }
 }

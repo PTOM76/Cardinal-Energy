@@ -1,6 +1,6 @@
 package nerdhub.cardinalenergy.api;
 
-import nerdhub.cardinal.components.api.ComponentType;
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import net.minecraft.util.math.Direction;
 
 /**
@@ -9,17 +9,17 @@ import net.minecraft.util.math.Direction;
 public interface IEnergyItemHandler extends IEnergyHandler {
 
     @Override
-    default boolean canConnectEnergy(Direction direction, ComponentType type) {
+    default boolean canConnectEnergy(Direction direction, ComponentKey<?> type) {
         throw new IllegalStateException("Tried to access IEnergyHandler methods from an IEnergyItemHandler");
     }
 
     @Override
-    default boolean isEnergyProvider(Direction direction, ComponentType type) {
+    default boolean isEnergyProvider(Direction direction, ComponentKey<?> type) {
         throw new IllegalStateException("Tried to access IEnergyHandler methods from an IEnergyItemHandler");
     }
 
     @Override
-    default boolean isEnergyReceiver(Direction direction, ComponentType type) {
+    default boolean isEnergyReceiver(Direction direction, ComponentKey<?> type) {
         throw new IllegalStateException("Tried to access IEnergyHandler methods from an IEnergyItemHandler");
     }
 }

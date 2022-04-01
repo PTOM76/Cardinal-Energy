@@ -1,7 +1,8 @@
 package nerdhub.cardinalenergy.api;
 
-import nerdhub.cardinal.components.api.ComponentType;
-import nerdhub.cardinalenergy.DefaultTypes;
+//import nerdhub.cardinal.components.api.ComponentKey;
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import nerdhub.cardinalenergy.DefaultKeys;
 import net.minecraft.util.math.Direction;
 
 /**
@@ -15,8 +16,8 @@ public interface IEnergyHandler {
      * @param direction - The direction to attempt connection, could be null
      * @return - True if a connection is successful
      */
-    default boolean canConnectEnergy(Direction direction, ComponentType componentType) {
-        return componentType == DefaultTypes.CARDINAL_ENERGY;
+    default boolean canConnectEnergy(Direction direction, ComponentKey<?> ComponentKey) {
+        return ComponentKey == DefaultKeys.CARDINAL_ENERGY;
     }
 
     /**
@@ -25,7 +26,7 @@ public interface IEnergyHandler {
      * @param direction - The direction to attempt sending, could be null
      * @return - True if it provides energy, false if a receiver
      */
-    default boolean isEnergyProvider(Direction direction, ComponentType componentType) {
+    default boolean isEnergyProvider(Direction direction, ComponentKey<?> ComponentKey) {
         return false;
     }
 
@@ -34,7 +35,7 @@ public interface IEnergyHandler {
      * @param direction - The direction to attempt receiving, could be null
      * @return - True if it can receive energy
      */
-    default boolean isEnergyReceiver(Direction direction, ComponentType componentType) {
-        return componentType == DefaultTypes.CARDINAL_ENERGY;
+    default boolean isEnergyReceiver(Direction direction, ComponentKey<?> ComponentKey) {
+        return ComponentKey == DefaultKeys.CARDINAL_ENERGY;
     }
 }

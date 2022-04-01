@@ -1,8 +1,9 @@
 package nerdhub.cardinalenergy.impl;
 
-import nerdhub.cardinal.components.api.component.BlockComponentProvider;
-import nerdhub.cardinal.components.api.component.extension.CloneableComponent;
-import nerdhub.cardinalenergy.DefaultTypes;
+import dev.onyxstudios.cca.api.v3.component.Component;
+import dev.onyxstudios.cca.api.v3.component.ComponentProvider;
+import dev.onyxstudios.cca.api.v3.component.CopyableComponent;
+import nerdhub.cardinalenergy.DefaultKeys;
 import nerdhub.cardinalenergy.api.IEnergyHandler;
 import nerdhub.cardinalenergy.api.IEnergyStorage;
 import nerdhub.cardinalenergy.impl.example.BlockEntityEnergyImpl;
@@ -102,39 +103,52 @@ public class EnergyStorage implements IEnergyStorage {
     }
 
     @Override
-    public NbtCompound toTag(NbtCompound nbt) {
+    public void writeToNbt(NbtCompound nbt) {
         nbt.putInt("capacity", capacity);
         nbt.putInt("energyStored", energyStored);
-        return nbt;
     }
 
     @Override
-    public void fromTag(NbtCompound nbt) {
+    public void readFromNbt(NbtCompound nbt) {
         capacity = nbt.getInt("capacity");
         energyStored = nbt.getInt("energyStored");
     }
 
     @Override
-    public CloneableComponent newInstance() {
+    public void copyFrom(Component other) {
+        NbtCompound nbt = new NbtCompound();
+        other.writeToNbt(nbt);
+        readFromNbt(nbt);
+    }
+
+    @Override
+    public CopyableComponent newInstance() {
         return new EnergyStorage(capacity, energyStored);
     }
 
-    public IEnergyStorage getEnergyReceiver(World world, BlockPos pos) {
-        BlockComponentProvider componentProvider = (BlockComponentProvider) world.getBlockState(pos).getBlock();
+    @Override
+    public boolean isComponentEqual(Component other) {
+        if (!(other instanceof EnergyStorage)) return false;
+        EnergyStorage otherStorage = (EnergyStorage) other;
+        return (capacity == otherStorage.capacity && energyStored == otherStorage.energyStored);
+    }
 
-        if(world.getBlockEntity(pos) instanceof IEnergyHandler && componentProvider.hasComponent(world, pos, DefaultTypes.CARDINAL_ENERGY, null)) {
+    public IEnergyStorage getEnergyReceiver(World world, BlockPos pos) {
+        ComponentProvider componentProvider = (ComponentProvider) world.getBlockState(pos).getBlock();
+
+        if(world.getBlockEntity(pos) instanceof IEnergyHandler && DefaultKeys.CARDINAL_ENERGY.isProvidedBy(componentProvider)) {
             IEnergyHandler energyHandler = (IEnergyHandler) world.getBlockEntity(pos);
-            return energyHandler.canConnectEnergy(null, DefaultTypes.CARDINAL_ENERGY) ? componentProvider.getComponent(world, pos, DefaultTypes.CARDINAL_ENERGY, null) : null;
+            return energyHandler.canConnectEnergy(null, DefaultKeys.CARDINAL_ENERGY) ? componentProvider.getComponent(DefaultKeys.CARDINAL_ENERGY) : null;
         }
 
         return null;
     }
 
     public boolean isEnergyReceiver(World world, BlockPos pos) {
-        BlockComponentProvider componentProvider = (BlockComponentProvider) world.getBlockState(pos).getBlock();
+        ComponentProvider componentProvider = (ComponentProvider) world.getBlockState(pos).getBlock();
 
-        if(world.getBlockEntity(pos) instanceof IEnergyHandler && componentProvider.hasComponent(world, pos, DefaultTypes.CARDINAL_ENERGY, null)) {
-            return ((IEnergyHandler) world.getBlockEntity(pos)).isEnergyReceiver(null, DefaultTypes.CARDINAL_ENERGY);
+        if(world.getBlockEntity(pos) instanceof IEnergyHandler && DefaultKeys.CARDINAL_ENERGY.isProvidedBy(componentProvider)) {
+            return ((IEnergyHandler) world.getBlockEntity(pos)).isEnergyReceiver(null, DefaultKeys.CARDINAL_ENERGY);
         }
 
         return false;

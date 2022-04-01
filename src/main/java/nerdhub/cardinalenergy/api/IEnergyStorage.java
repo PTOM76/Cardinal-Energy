@@ -1,6 +1,7 @@
 package nerdhub.cardinalenergy.api;
 
-import nerdhub.cardinal.components.api.component.extension.CloneableComponent;
+import dev.onyxstudios.cca.api.v3.component.Component;
+import dev.onyxstudios.cca.api.v3.component.CopyableComponent;
 import nerdhub.cardinalenergy.impl.EnergyStorage;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -8,7 +9,7 @@ import net.minecraft.world.World;
 /**
  * An interface used internally in an {@link EnergyStorage}
  */
-public interface IEnergyStorage extends CloneableComponent {
+public interface IEnergyStorage extends CopyableComponent {
 
     /**
      * Receive energy internally
@@ -77,4 +78,9 @@ public interface IEnergyStorage extends CloneableComponent {
      * @return - Returns the amount of energy sent
      */
     int sendEnergy(World world, BlockPos pos, int amount);
+
+    CopyableComponent newInstance();
+
+    boolean isComponentEqual(Component other);
+
 }
