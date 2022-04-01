@@ -6,7 +6,7 @@ import nerdhub.cardinalenergy.DefaultTypes;
 import nerdhub.cardinalenergy.api.IEnergyHandler;
 import nerdhub.cardinalenergy.api.IEnergyStorage;
 import nerdhub.cardinalenergy.impl.example.BlockEntityEnergyImpl;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -102,14 +102,14 @@ public class EnergyStorage implements IEnergyStorage {
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag nbt) {
+    public NbtCompound toTag(NbtCompound nbt) {
         nbt.putInt("capacity", capacity);
         nbt.putInt("energyStored", energyStored);
         return nbt;
     }
 
     @Override
-    public void fromTag(CompoundTag nbt) {
+    public void fromTag(NbtCompound nbt) {
         capacity = nbt.getInt("capacity");
         energyStored = nbt.getInt("energyStored");
     }

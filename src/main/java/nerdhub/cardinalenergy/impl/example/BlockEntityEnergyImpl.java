@@ -4,7 +4,7 @@ import nerdhub.cardinalenergy.api.IEnergyHandler;
 import nerdhub.cardinalenergy.impl.EnergyStorage;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 /**
  * An example impl of {@link IEnergyHandler}
@@ -22,16 +22,16 @@ public class BlockEntityEnergyImpl extends BlockEntity implements IEnergyHandler
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
+    public NbtCompound writeNbt(NbtCompound tag) {
+        super.writeNbt(tag);
         //Write energy to nbt
         this.storage.toTag(tag);
         return tag;
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void readNbt(NbtCompound tag) {
+        super.readNbt(tag);
         //Read energy from nbt
         this.storage.fromTag(tag);
     }

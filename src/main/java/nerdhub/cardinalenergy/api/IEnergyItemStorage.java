@@ -1,7 +1,6 @@
 package nerdhub.cardinalenergy.api;
 
 import nerdhub.cardinal.components.api.component.Component;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

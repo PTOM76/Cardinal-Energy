@@ -5,7 +5,7 @@ import nerdhub.cardinal.components.api.component.extension.CloneableComponent;
 import nerdhub.cardinalenergy.api.IEnergyItemStorage;
 import nerdhub.cardinalenergy.api.IEnergyStorage;
 import nerdhub.cardinalenergy.impl.example.ItemEnergyImpl;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 /**
  * An implementation of {@link IEnergyItemStorage}
@@ -83,17 +83,17 @@ public class ItemEnergyStorage implements IEnergyItemStorage {
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        if(tag.containsKey(ENERGY_TAG)) {
-            CompoundTag energyData = tag.getCompound(ENERGY_TAG);
+    public void fromTag(NbtCompound tag) {
+        if(tag.contains(ENERGY_TAG)) {
+            NbtCompound energyData = tag.getCompound(ENERGY_TAG);
             this.capacity = energyData.getInt("capacity");
             this.energyStored = energyData.getInt("energyStored");
         }
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        CompoundTag energyData = new CompoundTag();
+    public NbtCompound toTag(NbtCompound tag) {
+        NbtCompound energyData = new NbtCompound();
         energyData.putInt("capacity", capacity);
         energyData.putInt("energyStored", energyStored);
 
